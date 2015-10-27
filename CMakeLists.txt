@@ -16,17 +16,21 @@ if(MINGW)
 	SET(CMAKE_SHARED_MODULE_PREFIX "")
 endif (MINGW)
 
-SET(CMAKE_C_FLAGS "-std=gnu99")
-
 IF(APPLE)
+	SET(CMAKE_C_FLAGS "-std=gnu99")
 	SET(MACOSX_RPATH FALSE)
-    SET(EXTRA_LIBS "")
+	SET(EXTRA_LIBS "")
 	SET(CMAKE_EXE_LINKER_FLAGS "-std=gnu99")
 ELSEIF(WIN32)
+	SET(CMAKE_C_FLAGS "-std=gnu99")
 	SET(EXTRA_LIBS "")
 	SET(CMAKE_EXE_LINKER_FLAGS "-std=gnu99 -static -static-libgcc -static-libstdc++ -mwindows")
 	SET(CMAKE_SHARED_LINKER_FLAGS "-std=gnu99 -static -static-libgcc -static-libstdc++ -mwindows")
+ELSE()
+	SET(CMAKE_C_FLAGS "-std=gnu99 -mfpu=neon -O3 -g0")
+	SET(CMAKE_CXX_FLAGS "-mfpu=neon -O3 -g0")
 ENDIF()
+
 
 #	N3. Sources
 file(GLOB SOURCES_CPP "${CMAKE_CURRENT_SOURCE_DIR}/src/native/*.cpp")
