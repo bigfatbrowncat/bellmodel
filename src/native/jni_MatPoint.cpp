@@ -44,6 +44,10 @@ JNIEXPORT void JNICALL Java_bellmodel_MatPoint_disconnect(JNIEnv *, jclass, jlon
 		JNIEXPORT void JNICALL Java_bellmodel_MatPoint_update##FNAME(JNIEnv *, jclass, jlong nativePtr, type fname) {		\
 			mat_point& p = *((mat_point*)nativePtr);																		\
 			p.fname = fname;																								\
+		}																													\
+		JNIEXPORT type JNICALL Java_bellmodel_MatPoint_get##FNAME(JNIEnv *, jclass, jlong nativePtr) {						\
+			mat_point& p = *((mat_point*)nativePtr);																		\
+			return p.fname;																								\
 		}
 
 MATPOINT_UPDATE_FIELD(M, jdouble, m)

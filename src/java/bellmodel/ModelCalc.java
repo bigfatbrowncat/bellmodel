@@ -13,12 +13,14 @@ public class ModelCalc {
 	private static native void updateSteps(long nativePtr, int steps);
 	private static native void updateDT(long nativePtr, double dt);
 	
+	private static native long getModelData(long nativePtr);
+	private static native double getGain(long nativePtr);
+	private static native int getSteps(long nativePtr);
+	private static native double getDT(long nativePtr);
+
 	private static native double doStep(long nativePtr);
 
 	private long nativePtr;
-
-	private double gain, dt;
-	private int steps;
 
 	private ModelData modelData;
 
@@ -31,28 +33,31 @@ public class ModelCalc {
 	}
 
 	public double getGain() {
-		return gain;
+		return getGain(nativePtr);
 	}
 	public void setGain(double gain) {
-		this.gain = gain;
 		updateGain(nativePtr, gain);
 	}
 	public double getDT() {
-		return dt;
+		return getDT(nativePtr);
 	}
 	public void setDT(double dt) {
-		this.dt = dt;
 		updateDT(nativePtr, dt);
 	}
 	public int getSteps() {
-		return steps;
+		return getSteps(nativePtr);
 	}
 	public void setSteps(int steps) {
-		this.steps = steps;
 		updateSteps(nativePtr, steps);
 	}
 	public ModelData getModelData() {
-		return modelData;
+		long mdptr = getModelData(nativePtr);
+		if (modelData.nativePtr == mdptr) {
+			return modelData;
+		} else {
+			modelData = new ModelData(mdptr);
+			return modelData;
+		}
 	}
 	public void setModelData(ModelData modelData) {
 		this.modelData = modelData;

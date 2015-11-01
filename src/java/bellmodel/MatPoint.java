@@ -26,14 +26,20 @@ public class MatPoint {
 	private static native void updateMakesSound(long nativePtr, boolean makesSound);
 	private static native void updateFixed(long nativePtr, boolean fixed);
 
+	private static native double getM(long nativePtr);
+	private static native double getX(long nativePtr);
+	private static native double getY(long nativePtr);
+	private static native double getZ(long nativePtr);
+	private static native double getX0(long nativePtr);
+	private static native double getY0(long nativePtr);
+	private static native double getZ0(long nativePtr);
+	private static native double getVx(long nativePtr);
+	private static native double getVy(long nativePtr);
+	private static native double getVz(long nativePtr);
+	private static native boolean getMakesSound(long nativePtr);
+	private static native boolean getFixed(long nativePtr);
+	
 	long nativePtr;
-
-	private double m;
-	private double x, y, z;
-	private double x0, y0, z0;
-	private double vx, vy, vz;
-	private boolean makesSound;
-	private boolean fixed;
 
 	private Set<MatPoint> connected = new HashSet<>();
 
@@ -43,126 +49,114 @@ public class MatPoint {
 	                double vx, double vy, double vz, boolean makesSound, boolean fixed) {
 		nativePtr = alloc();
 
-		setM(m);
-		setX(x);
-		setY(y);
-		setZ(z);
-		setX0(x0);
-		setY0(y0);
-		setZ0(z0);
-		setVx(vx);
-		setVy(vy);
-		setVz(vz);
-		setMakesSound(makesSound);
-		setFixed(fixed);
+		updateM(nativePtr, m);
+		updateX(nativePtr, x);
+		updateY(nativePtr, y);
+		updateZ(nativePtr, z);
+		updateX0(nativePtr, x0);
+		updateY0(nativePtr, y0);
+		updateZ0(nativePtr, z0);
+		updateVx(nativePtr, vx);
+		updateVy(nativePtr, vy);
+		updateVz(nativePtr, vz);
+		updateMakesSound(nativePtr, makesSound);
+		updateFixed(nativePtr, fixed);
 	}
 
 	public double getM() {
-		return m;
+		return getM(nativePtr);
 	}
 
 	public void setM(double m) {
-		this.m = m;
 		updateM(nativePtr, m);
 	}
 
 	public double getX() {
-		return x;
+		return getX(nativePtr);
 	}
 
 	public void setX(double x) {
-		this.x = x;
 		updateX(nativePtr, x);
 	}
 
 	public double getY() {
-		return y;
+		return getY(nativePtr);
 	}
 
 	public void setY(double y) {
-		this.y = y;
 		updateY(nativePtr, y);
 	}
 
 	public double getZ() {
-		return z;
+		return getX(nativePtr);
 	}
 
 	public void setZ(double z) {
-		this.z = z;
 		updateZ(nativePtr, z);
 	}
 
 	public double getX0() {
-		return x0;
+		return getX0(nativePtr);
 	}
 
 	public void setX0(double x0) {
-		this.x0 = x0;
 		updateX0(nativePtr, x0);
 	}
 
 	public double getY0() {
-		return y0;
+		return getY0(nativePtr);
 	}
 
 	public void setY0(double y0) {
-		this.y0 = y0;
 		updateY0(nativePtr, y0);
 	}
 
 	public double getZ0() {
-		return z0;
+		return getZ0(nativePtr);
 	}
 
 	public void setZ0(double z0) {
-		this.z0 = z0;
 		updateZ0(nativePtr, z0);
 	}
 
 	public double getVx() {
-		return vx;
+		return getVx(nativePtr);
 	}
 
 	public void setVx(double vx) {
-		this.vx = vx;
 		updateVx(nativePtr, vx);
 	}
 
 	public double getVy() {
-		return vy;
+		return getVy(nativePtr);
 	}
 
 	public void setVy(double vy) {
-		this.vy = vy;
 		updateVy(nativePtr, vy);
 	}
 
 	public double getVz() {
-		return vz;
+		return getVz(nativePtr);
 	}
 	
 	public void setVz(double vz) {
-		this.vz = vz;
 		updateVz(nativePtr, vz);
 	}
 
 	public void setMakesSound(boolean makesSound) {
-		this.makesSound = makesSound;
 		updateMakesSound(nativePtr, makesSound);
 	}
 
 	public boolean makesSound() {
-		return makesSound;
+		return getMakesSound(nativePtr);
 	}
 
 	public void setFixed(boolean fixed) {
-		this.fixed = fixed;
 		updateFixed(nativePtr, fixed);
 	}
 
 	public boolean isFixed() {
-		return fixed;
+		return getFixed(nativePtr);
 	}
 	
 	public static void connect(MatPoint p1, MatPoint p2) {

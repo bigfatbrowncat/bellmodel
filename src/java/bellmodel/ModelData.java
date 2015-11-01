@@ -16,12 +16,17 @@ public class ModelData {
 	private static native void updateElasticity(long nativePtr, double elasticity);
 	private static native void updateFriction(long nativePtr, double friction);
 
-	long nativePtr;
+	private static native double getElasticity(long nativePtr);
+	private static native double getFriction(long nativePtr);
 
-	private double elasticity, friction;
+	long nativePtr;
 
 	private Set<MatPoint> points = new HashSet<>();
 
+	ModelData(long nativePtr) {
+		this.nativePtr = nativePtr;
+	}	
+	
 	public ModelData(double elasticity, double friction) {
 		nativePtr = alloc();
 
@@ -30,20 +35,18 @@ public class ModelData {
 	}
 
 	public double getElasticity() {
-		return elasticity;
+		return getElasticity(nativePtr);
 	}
 	
 	public void setElasticity(double elasticity) {
-		this.elasticity = elasticity;
 		updateElasticity(nativePtr, elasticity);
 	}
 	
 	public double getFriction() {
-		return friction;
+		return getFriction(nativePtr);
 	}
 	
 	public void setFriction(double friction) {
-		this.friction = friction;
 		updateFriction(nativePtr, friction);
 	}
 
